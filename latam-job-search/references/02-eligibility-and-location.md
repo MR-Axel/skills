@@ -84,6 +84,8 @@ Hybrid postings that fail this gate may be mentioned **once**, in a single closi
 outside the results table, only if the user's thin-day preference allows near-misses and
 only labeled as modality failures. They never occupy a numbered row.
 
+---
+
 ## Gate 2b: location
 
 ### Marketing copy is not an eligibility list
@@ -277,29 +279,6 @@ better default for refused sectors, because that answer will not change tomorrow
 
 ---
 
-## Gate 10: the link has to work
-
-Aggregator URLs rot. ATS shortcodes get recycled or retired when a req closes, and the
-board then serves a generic "current openings" page **with HTTP 200**, so a status-code
-check passes while the link is useless to the reader.
-
-Before putting a URL in the results table:
-
-- Prefer the **canonical source** over the aggregator mirror: the company's own ATS board,
-  or the ATS API (`api.ashbyhq.com/posting-api/job-board/<org>`,
-  `boards-api.greenhouse.io/v1/boards/<org>/jobs/<id>`). These return structured JSON that
-  either contains the job or does not, with no SPA shell in between.
-- **A 200 is not proof the posting exists.** Workable, Ashby, Greenhouse and Lever all
-  render client-side, so a plain fetch returns the shell for a dead ID exactly as it does
-  for a live one. Confirm the posting's own title appears in the payload you fetched.
-- If a link cannot be confirmed, either present the **employer's job board** instead, with
-  the role name to search for, or say the link could not be verified. Do not ship a URL
-  you have not seen resolve to the actual posting.
-- When a posting is only reachable through an aggregator, say so in the row. The user
-  should know before they click that they may land on a mirror or a dead page.
-
----
-
 ## Gate 8: culture red flags
 
 Grep the posting's own words for the phrases in the user's profile. If a description frames
@@ -328,6 +307,29 @@ Practical rules:
 
 ---
 
+## Gate 10: the link has to work
+
+Aggregator URLs rot. ATS shortcodes get recycled or retired when a req closes, and the
+board then serves a generic "current openings" page **with HTTP 200**, so a status-code
+check passes while the link is useless to the reader.
+
+Before putting a URL in the results table:
+
+- Prefer the **canonical source** over the aggregator mirror: the company's own ATS board,
+  or the ATS API (`api.ashbyhq.com/posting-api/job-board/<org>`,
+  `boards-api.greenhouse.io/v1/boards/<org>/jobs/<id>`). These return structured JSON that
+  either contains the job or does not, with no SPA shell in between.
+- **A 200 is not proof the posting exists.** Workable, Ashby, Greenhouse and Lever all
+  render client-side, so a plain fetch returns the shell for a dead ID exactly as it does
+  for a live one. Confirm the posting's own title appears in the payload you fetched.
+- If a link cannot be confirmed, either present the **employer's job board** instead, with
+  the role name to search for, or say the link could not be verified. Do not ship a URL
+  you have not seen resolve to the actual posting.
+- When a posting is only reachable through an aggregator, say so in the row. The user
+  should know before they click that they may land on a mirror or a dead page.
+
+---
+
 ## Quick reference
 
 | Gate | Fails when | Output when it fails |
@@ -343,3 +345,4 @@ Practical rules:
 | 7 Employer | Class the user deprioritized | Label it explicitly |
 | 8 Culture | Matches a listed red-flag phrase | Flag prominently |
 | 9 Dedupe | Company plus role already seen or applied | Silent drop, log it |
+| 10 Link | URL cannot be confirmed to resolve to the posting | Link the job board instead, or say it is unverified |
