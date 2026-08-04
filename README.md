@@ -15,7 +15,7 @@ Cada carpeta es un skill independiente.
 
 ### Desarrollo
 
-Estos ocho comparten un archivo de config, `.claude/project-profile.md`, que genera
+Estos comparten un archivo de config, `.claude/project-profile.md`, que genera
 `project-setup`. Ninguno asume tu stack: si el perfil no existe, te lo dicen en vez de
 adivinar y escribir código que no sigue tus convenciones.
 
@@ -29,6 +29,9 @@ adivinar y escribir código que no sigue tus convenciones.
 | [ux](ux/) | Auditoría de UI: accesibilidad, responsive, estados de interacción y consistencia con tu design system. |
 | [deploy](deploy/) | Pipeline de release. Respeta permisos separados para commit, push y deploy, y nunca despliega un build que no pasó. |
 | [ship](ship/) | Todo el circuito de una feature: planificar, implementar, validar, revisar, desplegar. Encadena los anteriores. |
+| [feature-agents](feature-agents/) | Lo mismo que `ship` pero **delegado a cinco subagentes** con herramientas acotadas: el que escribe el spec no puede escribir código, el que planifica no puede correr comandos. Para cambios grandes, donde la disciplina de fases deja de sostenerse sola. |
+| [deploy-qa](deploy-qa/) | QA **después** del deploy. Lee el diff, lo mapea al alcance real y elige la profundidad por blast radius en vez de correr siempre el mismo checklist. Arranca probando que el build nuevo esté de verdad en el aire. |
+| [decision-log](decision-log/) | Bitácora de las decisiones que no se recuperan leyendo el código: por qué ese límite, por qué ese modelo, qué se descartó y por qué. La entrada va en el mismo commit que la implementa. |
 | [product](product/) | Review de negocio: ¿resuelve la necesidad, los gates aguantan, el flujo está completo, se encuentra? |
 
 ### Marketing
@@ -36,6 +39,10 @@ adivinar y escribir código que no sigue tus convenciones.
 | Skill | Qué hace |
 |-------|----------|
 | [community-manager](community-manager/) | Contenido listo para publicar en X, LinkedIn, Instagram y más, sobre tu propio brand profile y tu funnel. **Nunca inventa métricas, testimonios ni social proof**: deja placeholders y te los lista. |
+| [linkedin-personal-brand](linkedin-personal-brand/) | Marca personal en LinkedIn, no de producto. Te entrevista para saber a qué apuntás y en qué sos bueno, rastrea las fuentes primarias de **tu** disciplina y devuelve textos listos para publicar o comentar. Mide qué funcionó post a post. Cuatro rutinas automatizables. |
+
+`community-manager` es para la marca de tu producto o tu funnel. `linkedin-personal-brand`
+es para vos como persona: tu nombre, tu criterio, tu nicho.
 
 ## Instalación
 
