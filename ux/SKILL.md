@@ -14,7 +14,8 @@ disable-model-invocation: true
 Audit $ARGUMENTS, or the components touched by the working diff.
 
 Read the design system section of `.claude/project-profile.md` first. If the project has
-no design system recorded, **say so at the top of the report** and audit only
+no design system recorded, **say so at the top of the report**, point at
+[`design-system`](../design-system/) for establishing one, and audit only
 responsiveness, accessibility and interaction states. Consistency findings need a stated
 standard to be consistent with; without one they are your taste, and you should not
 report your taste as a finding.

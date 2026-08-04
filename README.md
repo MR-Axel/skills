@@ -26,6 +26,7 @@ adivinar y escribir código que no sigue tus convenciones.
 | [test](test/) | Corre tu pipeline de validación y reporta honestamente qué pasó, qué falló y qué se salteó. Nunca marca en verde algo que no corrió. |
 | [review](review/) | Code review de un diff. Cada hallazgo anclado a un archivo y línea reales, con el escenario de falla concreto. |
 | [deep-review](deep-review/) | Review de arquitectura interactivo. Cada issue con opciones y su esfuerzo, riesgo e impacto. Vos priorizás, no él. |
+| [design-system](design-system/) | Establece un design system donde no hay, y **hace cumplir** el que existe: cuatro gates que hacen que violarlo falle un check en vez de sobrevivir el review. Sin herramientas de regresión visual. |
 | [ux](ux/) | Auditoría de UI: accesibilidad, responsive, estados de interacción y consistencia con tu design system. |
 | [deploy](deploy/) | Pipeline de release. Respeta permisos separados para commit, push y deploy, y nunca despliega un build que no pasó. |
 | [ship](ship/) | Todo el circuito de una feature: planificar, implementar, validar, revisar, desplegar. Encadena los anteriores. |
