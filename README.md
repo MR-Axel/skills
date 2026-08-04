@@ -1,21 +1,43 @@
 # skills
 
 Skills para [Claude Code](https://claude.com/claude-code), abiertos y listos para copiar.
-Cada carpeta es un skill independiente: se instala sola, no depende de las otras.
+Cada carpeta es un skill independiente.
 
-> Open Claude Code skills. Each directory is a self-contained skill.
+> Open Claude Code skills. Each directory is self-contained.
 
-## Skills disponibles
+## Skills
 
-| Skill | Qué hace | Idioma |
-|-------|----------|--------|
-| [latam-job-search](latam-job-search/) | Búsqueda de trabajo remoto para candidatos en LatAm. Filtra por modalidad, país elegible, huso horario, piso salarial y nivel de idioma **antes** de evaluar el fit. Incluye dos CLIs de portales sin API key. | ES / EN |
+### Búsqueda laboral
+
+| Skill | Qué hace |
+|-------|----------|
+| [latam-job-search](latam-job-search/) | Búsqueda de trabajo remoto para candidatos en LatAm. Filtra por modalidad, país elegible, huso horario, piso salarial, idioma y rubro **antes** de evaluar el fit. Incluye dos CLIs de portales sin API key. |
+
+### Desarrollo
+
+Estos ocho comparten un archivo de config, `.claude/project-profile.md`, que genera
+`project-setup`. Ninguno asume tu stack: si el perfil no existe, te lo dicen en vez de
+adivinar y escribir código que no sigue tus convenciones.
+
+| Skill | Qué hace |
+|-------|----------|
+| [project-setup](project-setup/) | **Corré este primero.** Detecta lo que puede de tu repo, te pregunta el resto y escribe el perfil compartido. Una vez por proyecto. |
+| [dev](dev/) | Implementa una feature o arregla un bug siguiendo las convenciones de tu repo. Reporta lo que asumió y lo que dejó afuera. |
+| [test](test/) | Corre tu pipeline de validación y reporta honestamente qué pasó, qué falló y qué se salteó. Nunca marca en verde algo que no corrió. |
+| [review](review/) | Code review de un diff. Cada hallazgo anclado a un archivo y línea reales, con el escenario de falla concreto. |
+| [deep-review](deep-review/) | Review de arquitectura interactivo. Cada issue con opciones y su esfuerzo, riesgo e impacto. Vos priorizás, no él. |
+| [ux](ux/) | Auditoría de UI: accesibilidad, responsive, estados de interacción y consistencia con tu design system. |
+| [deploy](deploy/) | Pipeline de release. Respeta permisos separados para commit, push y deploy, y nunca despliega un build que no pasó. |
+| [ship](ship/) | Todo el circuito de una feature: planificar, implementar, validar, revisar, desplegar. Encadena los anteriores. |
+| [product](product/) | Review de negocio: ¿resuelve la necesidad, los gates aguantan, el flujo está completo, se encuentra? |
+
+### Marketing
+
+| Skill | Qué hace |
+|-------|----------|
+| [community-manager](community-manager/) | Contenido listo para publicar en X, LinkedIn, Instagram y más, sobre tu propio brand profile y tu funnel. **Nunca inventa métricas, testimonios ni social proof**: deja placeholders y te los lista. |
 
 ## Instalación
-
-Todos los skills se instalan igual: copiás la carpeta a `~/.claude/skills/` para tenerlo
-disponible en todos tus proyectos, o a `.claude/skills/` dentro de un repo para que viva
-solo ahí.
 
 ```bash
 git clone https://github.com/MR-Axel/skills.git
@@ -23,30 +45,42 @@ mkdir -p ~/.claude/skills
 cp -r skills/<nombre-del-skill> ~/.claude/skills/
 ```
 
-Después leé el README del skill: algunos tienen un paso extra (dependencias, un comando de
-setup inicial).
+`~/.claude/skills/` los deja disponibles en todos tus proyectos. `.claude/skills/` dentro
+de un repo los deja solo ahí. Claude Code los detecta solo: invocalos por nombre
+(`/review`) o pedí lo que necesitás en lenguaje natural.
 
-Claude Code los detecta solo. Podés invocarlos por nombre (`/job-search`) o simplemente
-pedir lo que necesitás en lenguaje natural.
+Algunos tienen un paso extra, está en el README de cada uno.
+
+**Para los de desarrollo, empezá con `/project-setup`.** Sin el perfil los demás no
+arrancan, y eso es a propósito.
 
 ## Principios
 
-Los skills de este repo comparten tres reglas:
+Los skills de este repo comparten cuatro reglas:
 
-1. **Preguntar antes de asumir.** Un skill que infiere tus preferencias en vez de
-   preguntarlas te va a dar resultados que ya descartaste. La entrevista inicial es corta,
-   con opciones para clickear, y guarda lo que no quisiste contestar como pendiente en vez
-   de inventar un default.
-2. **Mostrar lo que se filtró.** Un filtro silencioso es indistinguible de un día sin
-   resultados, y no podés corregir lo que no ves.
-3. **No fabricar.** Nada de datos inventados, contactos inventados o credenciales
-   infladas. Si el skill no pudo verificar algo, lo dice.
+1. **Preguntar antes de asumir.** Un skill que infiere tu stack o tus preferencias te va a
+   dar resultados que ya descartaste. La config vive en tu repo, en un archivo que podés
+   editar, no cableada adentro del skill.
+2. **Mostrar lo que se filtró o se salteó.** Un filtro silencioso es indistinguible de un
+   día sin resultados. Un check que no corrió no es un check que pasó.
+3. **No fabricar.** Ni datos, ni contactos, ni métricas, ni testimonios, ni hallazgos sin
+   archivo y línea. Si no se pudo verificar, se dice.
+4. **Reportar honestamente.** Si los tests fallan, se dice y se pega la salida. Si el
+   pipeline paró a la mitad, se dice dónde y en qué estado quedó todo.
 
 ## Privacidad
 
-Ningún skill de este repo manda datos a ningún lado. Todo lo que aprenden queda en
-archivos dentro de tu workspace. Los READMEs indican cuáles conviene agregar al
-`.gitignore`.
+Ningún skill manda datos a ningún lado. Todo lo que aprenden queda en archivos dentro de
+tu workspace.
+
+Dos archivos de config merecen atención antes de commitearlos:
+
+- `.claude/project-profile.md` **nunca** debe tener secretos, keys, tokens ni
+  identificadores de infraestructura. Referenciá el nombre de la variable de entorno, no
+  el valor. `project-setup` te lo avisa durante la entrevista y rechaza el valor si se lo
+  pasás.
+- `job-search/` (perfil, tracker) tiene tus números de sueldo y tu historial de
+  postulaciones. Va al `.gitignore`.
 
 ## Contribuir
 

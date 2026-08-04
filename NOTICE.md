@@ -35,6 +35,17 @@ SOFTWARE.
 The skill definition itself (`SKILL.md`, everything under `references/` and `assets/`) is
 original work, MIT licensed under this repository's [LICENSE](LICENSE).
 
+## Engineering and marketing skills
+
+`project-setup`, `dev`, `test`, `review`, `deep-review`, `ux`, `deploy`, `ship`, `product`
+and `community-manager` were rewritten from a private, single-project skill set by the
+repository author. The originals were hardcoded to one codebase and one product; these
+versions are configuration-driven and carry no project-specific data. Same author, same
+MIT license, no third-party rights involved.
+
+`deep-review`'s interactive options-and-tradeoffs format was inspired by a code review
+style publicly associated with Garry Tan. The interpretation and all text are original.
+
 ### Terms of service
 
 `linkedin-search` reads LinkedIn's public `jobs-guest` pages. Automated access to LinkedIn
