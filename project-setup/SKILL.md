@@ -54,6 +54,11 @@ Confirm the detected values, ask for what is missing:
 - Framework and language, with versions if they matter to conventions
 - Package manager
 - Build command, test command, typecheck command, lint command
+- **Smoke command**: anything that actually STARTS the project and confirms it responds
+  (boot the server and hit a health route, render a page and check it is not blank, run
+  the CLI with `--help`). The other four analyse, compile or exercise logic; none of them
+  proves the thing boots, which is a failure that only shows up where nobody is watching.
+  If there is none, record `none` and say it is worth adding.
 - Which of these are **required to pass before shipping**, and which are advisory
 - Where the app is deployed, and the deploy command if there is one
 
