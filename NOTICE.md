@@ -1,6 +1,18 @@
 # Third-party notices
 
-## latam-job-search
+Everything in this repository is MIT licensed (see [LICENSE](LICENSE)). Almost all of it is
+original work by the repository author. This file records the exceptions and the
+attributions, skill by skill.
+
+## Summary
+
+| Skill | Origin |
+|-------|--------|
+| `latam-job-search` | Skill definition original. **Bundled CLIs are third-party**, see below. |
+| `project-setup`, `dev`, `test`, `review`, `deep-review`, `ux`, `deploy`, `ship`, `product`, `community-manager` | Rewritten by the author from a private single-project skill set |
+| `feature-agents`, `deploy-qa`, `decision-log`, `design-system`, `linkedin-personal-brand` | Original |
+
+## latam-job-search: bundled CLIs
 
 The two portal CLIs under `latam-job-search/tools/` (`linkedin-search` and
 `freehire-search`) originate from the **ai-job-search** framework by Mads Lorentzen,
@@ -32,19 +44,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-The skill definition itself (`SKILL.md`, everything under `references/` and `assets/`) is
-original work, MIT licensed under this repository's [LICENSE](LICENSE).
-
-## Engineering and marketing skills
-
-`project-setup`, `dev`, `test`, `review`, `deep-review`, `ux`, `deploy`, `ship`, `product`
-and `community-manager` were rewritten from a private, single-project skill set by the
-repository author. The originals were hardcoded to one codebase and one product; these
-versions are configuration-driven and carry no project-specific data. Same author, same
-MIT license, no third-party rights involved.
-
-`deep-review`'s interactive options-and-tradeoffs format was inspired by a code review
-style publicly associated with Garry Tan. The interpretation and all text are original.
+The skill definition around them (`SKILL.md`, everything under `references/` and `assets/`)
+is original work.
 
 ### Terms of service
 
@@ -52,3 +53,34 @@ style publicly associated with Garry Tan. The interpretation and all text are or
 is against their Terms of Service. The CLI is provided for **personal use at low volume**
 only; do not use it commercially or for bulk data collection. You run it on your own
 responsibility.
+
+## Skills rewritten from a private set
+
+`project-setup`, `dev`, `test`, `review`, `deep-review`, `ux`, `deploy`, `ship`, `product`
+and `community-manager` were rewritten by the repository author from a private,
+single-project skill set. The originals were hardcoded to one codebase and one product;
+these versions are configuration-driven and carry no project-specific data. Same author,
+same MIT license, no third-party rights involved.
+
+## Original skills
+
+`feature-agents`, `deploy-qa`, `decision-log`, `design-system` and
+`linkedin-personal-brand` are original work by the repository author, written for this
+collection.
+
+## Inspirations
+
+Ideas that shaped a skill's format, none of which involve copied material:
+
+- `deep-review`'s interactive options-and-tradeoffs format was inspired by a code review
+  style publicly associated with Garry Tan. The interpretation and all text are original.
+- `decision-log` is a lightweight take on the Architecture Decision Record pattern
+  popularised by Michael Nygard. The format here is deliberately smaller and the text is
+  original.
+
+## What none of these do
+
+No skill in this repository transmits your data anywhere, bundles a tracker, or requires an
+account, an API key or a login. The only network access any of them make is the job-portal
+CLIs above, plus ordinary web search and fetch when a skill explicitly says it is verifying
+something.
