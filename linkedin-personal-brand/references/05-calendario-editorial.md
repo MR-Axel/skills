@@ -121,6 +121,10 @@ archivo, porque un navegador abierto con `file://` no puede leer un JSON externo
 así la app se puede actualizar desde el repo sin perder los datos, y los datos se pueden
 regenerar sin romper la app.
 
+**Recomendarle a la persona que la guarde en los marcadores del navegador.** Es lo que hace que
+el sistema se sostenga en el tiempo: una cola que no está a un clic de distancia se deja de mirar
+a la tercera semana, y las ideas preparadas se pierden.
+
 Conviene guardar también el JSON suelto como `calendario-datos.json` al lado de la app. Es más
 fácil de editar y de versionar que el bloque embebido.
 
@@ -149,12 +153,12 @@ fácil de editar y de versionar que el bloque embebido.
       "promptImagen": "El prompt exacto para el generador de imágenes",
       "fuentes": ["https://..."],
       "cortes": [
-        { "corte": "5h",  "impresiones": 232, "alcanzados": 147, "outOfNetwork": 29,
-          "reacciones": 3, "comentarios": 1, "saves": 0, "reposts": 0, "sends": 0,
-          "visitasPerfil": 1, "seguidores": 0 },
-        { "corte": "24h", "impresiones": 357, "alcanzados": 215, "outOfNetwork": 33,
-          "reacciones": 4, "comentarios": 1, "saves": 1, "reposts": 0, "sends": 0,
-          "visitasPerfil": 5, "seguidores": 0 }
+        { "corte": "5h",  "impresiones": 000, "alcanzados": 000, "outOfNetwork": 00,
+          "reacciones": 0, "comentarios": 0, "saves": 0, "reposts": 0, "sends": 0,
+          "visitasPerfil": 0, "seguidores": 0 },
+        { "corte": "24h", "impresiones": 000, "alcanzados": 000, "outOfNetwork": 00,
+          "reacciones": 0, "comentarios": 0, "saves": 0, "reposts": 0, "sends": 0,
+          "visitasPerfil": 0, "seguidores": 0 }
       ],
       "pendientes": ["72hs"]
     }

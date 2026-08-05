@@ -46,14 +46,30 @@ Después le pedís cosas en lenguaje natural:
 ## La app del calendario
 
 Todo lo que se prepara entra en una cola con fecha, hora, texto completo, prompt de imagen y
-links de fuente. `assets/calendario-app.html` la muestra en vista semanal y en lista, con
-detalle por post, botones de copiar y cuenta regresiva para lo que tiene fecha límite.
-
-Es un archivo único, sin dependencias y sin servidor. Se abre con doble clic.
+links de fuente. `assets/calendario-app.html` la muestra en un solo archivo, sin dependencias y
+sin servidor. Se abre con doble clic.
 
 ```
 Copiá assets/calendario-app.html a mi carpeta y cargale la cola del calendario
 ```
+
+Tres vistas:
+
+- **Semana**: la grilla de días con el formato que le toca a cada uno, para ver un hueco antes de
+  que sea tarde.
+- **Todo**: la cola completa por fecha, con la cuarentena al final.
+- **Publicados**: la tabla de rendimiento, un post por fila, con el engagement de terceros
+  calculado sobre alcanzados. Si terminás comparando un post medido a 3hs contra otro medido a
+  24hs, la app te avisa: son cortes que no se pueden comparar entre sí.
+
+Click en cualquier post abre el detalle, con el texto y el prompt de imagen listos para copiar,
+las fuentes para el primer comentario, la cuenta regresiva si tiene fecha límite, y la evolución
+entre cortes si ya está publicado.
+
+**Guardala en los marcadores del navegador.** Es lo que hace que el sistema se sostenga: si la
+cola no está a un clic de distancia, se deja de mirar a la tercera semana y las ideas preparadas
+se pierden. Arrastrá el archivo a la barra de marcadores, o abrilo y guardalo con Ctrl+D
+(Cmd+D en Mac).
 
 Claude escribe los datos en el bloque JSON que la app trae adentro. Para actualizarla, reescribe
 solo ese bloque, así podés bajar una versión nueva de la app del repo sin perder tus datos.
