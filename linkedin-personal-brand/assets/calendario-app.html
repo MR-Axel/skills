@@ -147,6 +147,49 @@
   /* ---------- list ---------- */
   .list .day { min-height: 0; margin-bottom: 10px; }
 
+  /* ---------- tabla de publicados ---------- */
+  .tablewrap {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow-x: auto;
+  }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { padding: 9px 12px; text-align: right; white-space: nowrap; }
+  th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: left; }
+  thead th {
+    font-size: 10px; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--text-faint); font-weight: 600; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; background: var(--surface);
+  }
+  tbody tr { border-bottom: 1px solid var(--border); cursor: pointer; }
+  tbody tr:last-child { border-bottom: 0; }
+  tbody tr:hover { background: var(--surface-2); }
+  td.num { font-variant-numeric: tabular-nums; }
+  td .fmt { color: var(--cat); font-weight: 600; }
+  .corte {
+    font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px;
+    background: var(--surface-2); border: 1px solid var(--border); color: var(--text-dim);
+  }
+  .warn {
+    background: color-mix(in srgb, var(--cat-postura) 12%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--cat-postura) 40%, var(--border));
+    border-radius: var(--radius); padding: 11px 15px; margin-bottom: 12px; font-size: 13px;
+  }
+  .warn b { color: var(--cat-postura); }
+  .pend { font-size: 12px; color: var(--text-dim); margin-top: 11px; }
+  .pend b { color: var(--text); font-weight: 600; }
+
+  /* ---------- vacío ---------- */
+  .blank {
+    background: var(--surface); border: 1px dashed var(--border);
+    border-radius: var(--radius); padding: 34px 28px; text-align: center;
+  }
+  .blank h3 { margin: 0 0 8px; font-size: 15px; }
+  .blank p { margin: 0 auto; max-width: 460px; color: var(--text-dim); font-size: 13.5px; }
+  .blank code {
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 5px; padding: 1px 5px; font-size: 12.5px;
+  }
+
   /* ---------- detail ---------- */
   dialog {
     border: 1px solid var(--border); border-radius: 14px; padding: 0;
@@ -211,6 +254,7 @@
     <div class="seg" role="group" aria-label="Vista">
       <button id="vSemana" aria-pressed="true">Semana</button>
       <button id="vLista" aria-pressed="false">Todo</button>
+      <button id="vPub" aria-pressed="false">Publicados</button>
     </div>
     <div class="spacer"></div>
     <div id="filtros"></div>
@@ -344,10 +388,23 @@
   // ---------- vistas ----------
   function render() {
     stats();
-    document.getElementById("weeknav").hidden = vista !== "semana";
-    document.getElementById("vista").innerHTML = vista === "semana" ? semanaHTML() : listaHTML();
+    document.getElementById("weeknav").hidden = vista !== "semana" || !D.posts.length;
+    document.querySelector(".controls").hidden = !D.posts.length;
+    const cuerpo = !D.posts.length ? vacioHTML()
+      : vista === "semana" ? semanaHTML()
+      : vista === "lista"  ? listaHTML()
+      : publicadosHTML();
+    document.getElementById("vista").innerHTML = cuerpo;
     document.querySelectorAll(".card").forEach(b => b.onclick = () => abrir(+b.dataset.i));
+    document.querySelectorAll("tr[data-i]").forEach(r => r.onclick = () => abrir(+r.dataset.i));
   }
+
+  const vacioHTML = () => `<div class="blank">
+      <h3>Todavía no hay nada en la cola</h3>
+      <p>Esta es la plantilla del skill <b>linkedin-personal-brand</b>. Copiala a tu carpeta de
+      trabajo y pedile a Claude que le cargue tu calendario; los datos van en el bloque
+      <code>&lt;script id="datos"&gt;</code> de este mismo archivo.</p>
+    </div>`;
 
   function semanaHTML() {
     const fin = addDays(semana, 4);
@@ -384,6 +441,89 @@
       `<div class="day"><h3>${esc(g)}</h3>${its.map(({p,i}) => card(p,i)).join("")}</div>`).join("") + `</div>`;
   }
 
+  // ---------- métricas ----------
+  // Acepta cortes: [{corte:"24h", ...}] y también el formato viejo metricas:{...}.
+  const cortes = p => p.cortes?.length ? p.cortes : (p.metricas ? [{ corte: "único", ...p.metricas }] : []);
+  const ultimo = p => cortes(p).slice(-1)[0] || null;
+  const n = v => (typeof v === "number" ? v : 0);
+  const engTerceros = c => n(c.reacciones) + n(c.comentarios) + n(c.saves) + n(c.reposts) + n(c.sends);
+  const tasa = c => c.alcanzados ? (engTerceros(c) / c.alcanzados * 100) : null;
+  const fmt = v => v === null || v === undefined ? "<span style='color:var(--text-faint)'>·</span>" : v;
+  const pct = v => v === null ? fmt(null) : v.toFixed(1).replace(".", ",") + "%";
+
+  const COLS = [
+    ["Impresiones", c => fmt(c.impresiones)],
+    ["Alcanzados",  c => fmt(c.alcanzados)],
+    ["Fuera de red",c => c.outOfNetwork != null ? c.outOfNetwork + "%" : fmt(null)],
+    ["Reacc.",      c => fmt(c.reacciones)],
+    ["Coment.",     c => fmt(c.comentarios)],
+    ["Saves",       c => fmt(c.saves)],
+    ["Perfil",      c => fmt(c.visitasPerfil)],
+    ["Seguidores",  c => fmt(c.seguidores)],
+    ["Engagement",  c => pct(tasa(c))]
+  ];
+
+  function publicadosHTML() {
+    const pubs = D.posts
+      .map((p, i) => ({ p, i }))
+      .filter(({p}) => p.estado === "publicado" && cortes(p).length)
+      .sort((a, b) => (a.p.fecha || "").localeCompare(b.p.fecha || ""));
+
+    if (!pubs.length) return `<div class="blank">
+      <h3>Sin métricas cargadas todavía</h3>
+      <p>Cuando un post pase a publicado, cargá sus cortes de 24hs (y de 72hs si es documento)
+      y van a aparecer acá para comparar.</p></div>`;
+
+    const etiquetas = [...new Set(pubs.map(({p}) => ultimo(p).corte))];
+    const aviso = etiquetas.length > 1 ? `<div class="warn">
+      <b>Ojo:</b> la tabla mezcla cortes de distinta edad (${etiquetas.join(", ")}). No son
+      comparables entre sí: las impresiones arrancan rápido, pero las visitas al perfil y los
+      saves llegan tarde. Compará solo filas del mismo corte.</div>` : "";
+
+    const filas = pubs.map(({p, i}) => {
+      const c = ultimo(p);
+      const cat = CATS[p.categoria] || {};
+      return `<tr data-i="${i}">
+        <td>${esc(fechaCorta(p.fecha))}<br><span style="color:var(--text-faint);font-size:11px">${esc(p.hora || "")}</span></td>
+        <td style="--cat:${cat.color}"><span class="fmt">${esc(cat.label || p.categoria)}</span><br>
+          <span style="font-size:11px;color:var(--text-dim)">${esc(p.titulo)}</span></td>
+        <td><span class="corte">${esc(c.corte)}</span></td>
+        ${COLS.map(([, f]) => `<td class="num">${f(c)}</td>`).join("")}
+      </tr>`;
+    }).join("");
+
+    const pendientes = pubs.filter(({p}) => p.pendientes?.length)
+      .map(({p}) => `${fechaCorta(p.fecha)}: ${p.pendientes.join(", ")}`);
+
+    return aviso + `<div class="tablewrap"><table>
+      <thead><tr><th>Fecha</th><th>Formato</th><th>Corte</th>
+      ${COLS.map(([t]) => `<th>${t}</th>`).join("")}</tr></thead>
+      <tbody>${filas}</tbody></table></div>` +
+      (pendientes.length ? `<div class="pend"><b>Cortes pendientes de cargar:</b> ${esc(pendientes.join(" · "))}</div>` : "") +
+      `<div class="pend">Engagement es sobre alcanzados y solo cuenta terceros; los comentarios
+       propios no entran. Click en una fila para ver la evolución entre cortes.</div>`;
+  }
+
+  const fechaCorta = f => {
+    if (!f) return "sin fecha";
+    const d = parse(f);
+    return `${DIAS[(d.getDay()+6)%7]?.slice(0,3) || ""} ${d.getDate()}/${d.getMonth()+1}`;
+  };
+
+  function progresionHTML(p) {
+    const cs = cortes(p);
+    if (!cs.length) return "";
+    const filas = COLS.map(([t, f]) =>
+      `<tr><td style="text-align:left;color:var(--text-dim)">${t}</td>
+        ${cs.map(c => `<td class="num">${f(c)}</td>`).join("")}</tr>`).join("");
+    return `<div class="sect"><h4>Evolución entre cortes</h4>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Métrica</th>${cs.map(c => `<th style="text-align:right">${esc(c.corte)}</th>`).join("")}</tr></thead>
+        <tbody>${filas}</tbody></table></div>
+      ${p.pendientes?.length ? `<div class="pend">Pendiente de cargar: <b>${esc(p.pendientes.join(", "))}</b></div>` : ""}
+      </div>`;
+  }
+
   // ---------- detalle ----------
   const dlg = document.getElementById("detalle");
   function abrir(i) {
@@ -401,13 +541,13 @@
       ["Cuándo", `${fechaTxt}${p.hora ? `, ${esc(p.hora)}` : ""}`],
       ["Estado", (ESTADOS[p.estado] || {}).label || p.estado],
       p.imagen ? ["Imagen", esc(p.imagen)] : null,
-      p.vence ? ["Fecha límite", `${p.vence} (${diasHasta(p.vence)} días)`] : null,
-      p.metricas ? ["Métricas", Object.entries(p.metricas).map(([k,v]) => `${k}: ${v}`).join(" · ")] : null
+      p.vence ? ["Fecha límite", `${p.vence} (${diasHasta(p.vence)} días)`] : null
     ].filter(Boolean);
 
     document.getElementById("dBody").innerHTML = `
       <div class="sect"><dl class="kv">${rows.map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl></div>
       ${p.nota ? `<div class="sect"><div class="note">${esc(p.nota)}</div></div>` : ""}
+      ${progresionHTML(p)}
       ${p.texto ? bloque("Texto del post", p.texto, "t"+i) : ""}
       ${p.promptImagen ? bloque("Prompt de imagen", p.promptImagen, "p"+i, true) : ""}
       ${p.fuentes?.length ? `<div class="sect"><h4>Fuentes (van al primer comentario)</h4>
@@ -432,10 +572,12 @@
     vista = v;
     document.getElementById("vSemana").setAttribute("aria-pressed", String(v === "semana"));
     document.getElementById("vLista").setAttribute("aria-pressed", String(v === "lista"));
+    document.getElementById("vPub").setAttribute("aria-pressed", String(v === "publicados"));
     render();
   };
   document.getElementById("vSemana").onclick = () => setVista("semana");
   document.getElementById("vLista").onclick  = () => setVista("lista");
+  document.getElementById("vPub").onclick    = () => setVista("publicados");
   document.getElementById("prev").onclick = () => { semana = addDays(semana, -7); render(); };
   document.getElementById("next").onclick = () => { semana = addDays(semana,  7); render(); };
   document.getElementById("hoy").onclick  = () => { semana = monday(HOY); render(); };

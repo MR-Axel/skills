@@ -95,9 +95,17 @@ vertical ocupa más pantalla en el feed móvil.
 
 ## La app
 
-`assets/calendario-app.html` es un archivo único, sin dependencias y sin servidor, que muestra la
-cola en vista semanal y en lista, con detalle por post, botones de copiar para el texto y el
-prompt, y cuenta regresiva para lo que tiene fecha límite.
+`assets/calendario-app.html` es un archivo único, sin dependencias y sin servidor. Tiene tres
+vistas:
+
+- **Semana**: la grilla de días con el formato esperado de cada uno, para ver un hueco antes de
+  que sea tarde.
+- **Todo**: la cola completa agrupada por fecha, con la cuarentena al final.
+- **Publicados**: la tabla de rendimiento, un post por fila, para leer patrones.
+
+El detalle de cada post trae el texto completo y el prompt de imagen con botones de copiar, las
+fuentes, la nota de por qué va ese día, la cuenta regresiva si tiene fecha límite, y la evolución
+entre cortes si ya está publicado.
 
 Los datos viven en un bloque `<script id="datos" type="application/json">` dentro del mismo
 archivo, porque un navegador abierto con `file://` no puede leer un JSON externo.
@@ -140,7 +148,15 @@ fácil de editar y de versionar que el bloque embebido.
       "texto": "El post completo.\n\nCon saltos de párrafo como \\n\\n.",
       "promptImagen": "El prompt exacto para el generador de imágenes",
       "fuentes": ["https://..."],
-      "metricas": { "impresiones 24h": 357, "saves": 1 }
+      "cortes": [
+        { "corte": "5h",  "impresiones": 232, "alcanzados": 147, "outOfNetwork": 29,
+          "reacciones": 3, "comentarios": 1, "saves": 0, "reposts": 0, "sends": 0,
+          "visitasPerfil": 1, "seguidores": 0 },
+        { "corte": "24h", "impresiones": 357, "alcanzados": 215, "outOfNetwork": 33,
+          "reacciones": 4, "comentarios": 1, "saves": 1, "reposts": 0, "sends": 0,
+          "visitasPerfil": 5, "seguidores": 0 }
+      ],
+      "pendientes": ["72hs"]
     }
   ]
 }
@@ -151,7 +167,29 @@ fácil de editar y de versionar que el bloque embebido.
 - `dia` se calcula solo desde `fecha`; no hace falta cargarlo.
 - Las entradas en cuarentena van sin `fecha`: aparecen agrupadas en la vista de lista.
 - Campos opcionales: `prioridad`, `vence`, `imagen`, `nota`, `texto`, `promptImagen`, `fuentes`,
-  `metricas`.
+  `cortes`, `pendientes`.
 
 Validar el JSON antes de inyectarlo. Un JSON roto deja la app en blanco y el error solo se ve en
 la consola del navegador.
+
+### Métricas: un objeto por corte, no un número suelto
+
+`cortes` es una lista **en orden cronológico**, un objeto por cada vez que se midió el post.
+`comentarios` son siempre los de terceros, ya descontados los propios. Es el campo donde más se
+infla la lectura sin querer.
+
+La app usa esta estructura para tres cosas que un número suelto no permite:
+
+1. **La vista Publicados** compara todos los posts en una tabla, usando el último corte de cada
+   uno, y calcula el engagement de terceros sobre alcanzados.
+2. **La evolución entre cortes** en el detalle de cada post muestra qué se movió y qué no entre
+   una medición y la siguiente. Es como se descubre que una métrica se acumula tarde.
+3. **El aviso automático de cortes mezclados.** Si la tabla termina comparando un post medido a
+   3hs contra otro medido a 24hs, la app lo avisa arriba. Es la regla de método de
+   `04-metricas.md` metida en la herramienta, para que el error no dependa de acordarse.
+
+`pendientes` lista los cortes que faltan cargar y aparece al pie de la tabla. Sirve como
+recordatorio: un carrusel sin su corte de 72hs está mal medido, no bien medido.
+
+Se acepta también el formato viejo `metricas: { ... }` como corte único, para no romper
+calendarios existentes. Para registros nuevos, usar `cortes`.
