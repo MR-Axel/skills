@@ -2,7 +2,6 @@
 node_modules/
 
 # Personal state produced by the skills, never commit
-job-search/
 *.local.md
 
 # OS

@@ -1,6 +1,6 @@
 # skills
 
-16 skills abiertos para [Claude Code](https://claude.com/claude-code). Cada carpeta es
+15 skills abiertos para [Claude Code](https://claude.com/claude-code). Cada carpeta es
 independiente: copiás la que querés y funciona sola.
 
 Lo que tienen en común no es el tema, es cómo están escritos. Ninguno trae tu stack, tu
@@ -9,11 +9,11 @@ en un archivo de tu repo que podés editar, y si ese archivo no está **te lo di
 adivinar**. Un skill que adivina tu stack escribe código que parece razonable y no sigue
 ninguna de tus convenciones, y eso cuesta más que no tener el skill.
 
-> **English**: 16 open Claude Code skills for development, marketing and remote job
-> hunting. Each directory is self-contained. Nothing is hardcoded: skills interview you
+> **English**: 15 open Claude Code skills for development and marketing. Each directory
+> is self-contained. Nothing is hardcoded: skills interview you
 > once, store the answers in a config file in your repo, and stop and say so when that file
-> is missing rather than guessing. Skill docs are in English; two skills
-> (`linkedin-personal-brand`, and the reports of `latam-job-search`) work in Spanish.
+> is missing rather than guessing. Skill docs are in English; `linkedin-personal-brand`
+> works in Spanish.
 
 ## Desarrollo
 
@@ -72,12 +72,6 @@ Cuatro pares se pisan a propósito. La diferencia:
 `community-manager` es para la marca de tu producto o tu funnel. `linkedin-personal-brand`
 es para vos como persona: tu nombre, tu criterio, tu nicho.
 
-## Búsqueda laboral
-
-| Skill | Qué hace |
-|-------|----------|
-| [latam-job-search](latam-job-search/) | Búsqueda de trabajo remoto para candidatos en LatAm. Filtra por modalidad, país elegible, huso horario, piso salarial, idioma, tipo de empresa y rubro **antes** de evaluar el fit, porque eso es lo que realmente te descarta. Incluye dos CLIs de portales sin API key. |
-
 ## Instalación
 
 ```bash
@@ -96,9 +90,7 @@ cp -r skills/*/ ~/.claude/skills/
 de un repo los deja solo ahí. Claude Code los detecta solo: invocalos por nombre
 (`/review`) o pedí lo que necesitás en lenguaje natural.
 
-Algunos tienen un paso extra, está en el README de cada uno. `latam-job-search` necesita
-[bun](https://bun.sh) para sus dos CLIs; sin bun funciona igual con búsqueda web y lo
-aclara en la salida.
+Algunos tienen un paso extra, está en el README de cada uno.
 
 **Para los de desarrollo, empezá con `/project-setup`.** Sin el perfil los demás no
 arrancan, y eso es a propósito.
@@ -129,7 +121,6 @@ workspace. Qué genera cada uno, y qué hacer con eso:
 | `.claude/lessons.md` | `ship` | A gusto. No tiene datos sensibles. |
 | `.claude/brand-profile.md` | `community-manager` | A gusto. Es posicionamiento, no credenciales. |
 | `perfil-marca.md` | `linkedin-personal-brand` | A gusto. |
-| `job-search/` | `latam-job-search` | **No.** Tiene tus números de sueldo y tu historial de postulaciones. Va al `.gitignore`. |
 
 ## Contribuir
 
