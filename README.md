@@ -9,11 +9,10 @@ en un archivo de tu repo que podés editar, y si ese archivo no está **te lo di
 adivinar**. Un skill que adivina tu stack escribe código que parece razonable y no sigue
 ninguna de tus convenciones, y eso cuesta más que no tener el skill.
 
-> **English**: 15 open Claude Code skills for development and marketing. Each directory
+> **English**: 14 open Claude Code skills for development and marketing. Each directory
 > is self-contained. Nothing is hardcoded: skills interview you
 > once, store the answers in a config file in your repo, and stop and say so when that file
-> is missing rather than guessing. Skill docs are in English; `linkedin-personal-brand`
-> works in Spanish.
+> is missing rather than guessing. Skill docs are in English.
 
 ## Desarrollo
 
@@ -67,10 +66,6 @@ Cuatro pares se pisan a propósito. La diferencia:
 | Skill | Qué hace |
 |-------|----------|
 | [community-manager](community-manager/) | Contenido listo para publicar en X, LinkedIn, Instagram y más, sobre tu propio brand profile y tu funnel. **Nunca inventa métricas, testimonios ni social proof**: deja placeholders y te los lista al final. |
-| [linkedin-personal-brand](linkedin-personal-brand/) | Marca personal en LinkedIn, no de producto. Te entrevista para saber a qué apuntás y en qué sos bueno, rastrea las fuentes primarias de **tu** disciplina y devuelve textos listos para publicar o comentar. Mide qué funcionó post a post. Cuatro rutinas automatizables. En español. |
-
-`community-manager` es para la marca de tu producto o tu funnel. `linkedin-personal-brand`
-es para vos como persona: tu nombre, tu criterio, tu nicho.
 
 ## Instalación
 
@@ -120,7 +115,6 @@ workspace. Qué genera cada uno, y qué hacer con eso:
 | `DECISIONS.md` | `decision-log` | **Sí**, ese es el punto: la entrada va en el mismo commit que la decisión. |
 | `.claude/lessons.md` | `ship` | A gusto. No tiene datos sensibles. |
 | `.claude/brand-profile.md` | `community-manager` | A gusto. Es posicionamiento, no credenciales. |
-| `perfil-marca.md` | `linkedin-personal-brand` | A gusto. |
 
 ## Contribuir
 
