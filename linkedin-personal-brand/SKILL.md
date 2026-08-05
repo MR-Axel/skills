@@ -38,6 +38,37 @@ hallazgo**:
 | Cambio de rol | Aprendizaje en público. Lo que estás construyendo para entrar al terreno nuevo | Fingir experiencia que no tenés |
 | Comunidad | Preguntas abiertas, dar espacio a otros, amplificar gente del nicho | Monólogos |
 
+## El calendario es la fuente de verdad
+
+`calendario.md` no es una tabla de horarios; es la cola de producción. Detalle en
+`references/05-calendario-editorial.md`.
+
+**Antes de proponer cualquier contenido, leer `calendario.md` y `historico-performance.md`
+completos.** Sin ese chequeo el sistema se canibaliza: propone temas que se pisan con lo que se
+publicó anteayer o con lo que ya está preparado para pasado mañana. Un tema colisiona cuando
+comparte tesis, escena o dato ancla con algo de los últimos 7 días o de la cola.
+
+Lo que colisiona **no se descarta en silencio ni se propone igual**: va a la sección de
+cuarentena del calendario con fecha de revival y un ángulo reescrito. Así se recupera en vez de
+perderse. Al presentar hallazgos, decir contra qué se chequeó.
+
+Dos principios más del calendario:
+
+- **Un formato por día.** Si se publica todos los días, cada día lleva un registro distinto. Dos
+  posts del mismo tipo en la misma semana compiten por el mismo lector.
+- **Excepción por fecha límite.** Una noticia que pierde valor si espera (un precio que cambia,
+  una ventana que se cierra) empuja lo programado un día. Que algo sea de hoy no lo hace urgente.
+
+### La app del calendario
+
+`assets/calendario-app.html` muestra la cola en vista semanal y en lista, con el texto completo
+de cada post, su prompt de imagen, botones de copiar y cuenta regresiva para lo que vence. Es un
+archivo único sin dependencias: se copia a la carpeta de trabajo y se abre con doble clic.
+
+Los datos van en el bloque `<script id="datos" type="application/json">` de ese mismo archivo.
+Para actualizarla se reescribe **solo ese bloque**, nunca el HTML ni el JS. Esquema y
+procedimiento en `references/05-calendario-editorial.md`.
+
 ## Radar de noticias
 
 Rutina diaria, o cuando la persona lo pida. Detalle completo en `references/03-radar-diario.md`.
@@ -110,17 +141,32 @@ Aclará siempre a qué categoría pertenece cada cosa. La confusión entre "escr
 
 ## Medición
 
-Sin registro no hay aprendizaje. Detalle en `references/04-metricas.md`. Tres reglas que evitan
+Sin registro no hay aprendizaje. Detalle en `references/04-metricas.md`. Cinco reglas que evitan
 leer mal los números:
 
 1. **Corte fijo a las 24hs**, siempre el mismo. Carruseles y documentos llevan un segundo corte a
    las 72hs porque acumulan más lento.
-2. **Descontar los comentarios propios.** LinkedIn suma tus respuestas y tu comentario con el
+2. **Nunca comparar cortes de distinta edad.** Un post a 3hs contra otro a 24hs da conclusiones
+   falsas en las dos direcciones. Si hay que mirar algo antes de tiempo, decir que es preliminar.
+3. **Las visitas al perfil y los saves llegan tarde.** Un cero antes del corte de 24hs no es un
+   cero, y tratarlo como tal lleva a rediseñar contenido que no tenía ese problema.
+4. **Descontar los comentarios propios.** LinkedIn suma tus respuestas y tu comentario con el
    link dentro de "Social engagements". Solo cuentan los de terceros.
-3. **Un post no es un patrón.** Recién con seis u ocho registros se concluye algo. Hasta
+5. **Un post no es un patrón.** Recién con seis u ocho registros se concluye algo. Hasta
    entonces todo es hipótesis y hay que marcarlo como tal.
 
+Ante alcance que no se convierte, diagnosticar **qué paso del embudo falla** antes de tocar nada:
+sin visitas al perfil, el problema es el post; con visitas y sin seguidores, el problema es el
+perfil. Reescribir posts cuando lo que no cierra es el titular gasta semanas sin mover nada.
+
 Pedir siempre el tamaño de la red. Sin ese dato las impresiones no se pueden interpretar.
+
+**Sobre el horario**: es lo primero que todo el mundo quiere cambiar y casi nunca es la variable
+que importa. El horario mueve impresiones; no mueve si alguien hace clic en tu nombre. Antes de
+proponer un cambio de horario, verificar que la métrica que se quiere mover dependa de él, y
+probarlo variando una sola cosa. Dato útil: la conversación se congela en las primeras horas
+mientras el alcance sigue solo, así que conviene publicar cuando la persona pueda responder los
+primeros comentarios.
 
 ## Automatizar con rutinas
 
@@ -158,7 +204,9 @@ Cuatro reglas para cualquier rutina de este sistema:
 |---|---|
 | `perfil-marca.md` | Respuestas del onboarding. Se lee al empezar cualquier sesión |
 | `identidad-marca.md` | Narrativa, posturas fuertes, reglas de voz, estilo visual |
-| `calendario.md` | Qué se publica cada día y en qué franja |
+| `calendario.md` | La cola de producción. Se lee antes de proponer cualquier cosa |
+| `calendario-datos.json` | La misma cola en JSON, para alimentar la app |
+| `calendario-app.html` | La app de la cola. Copia de `assets/` con los datos inyectados |
 | `banco-ideas.md` | Ideas sin desarrollar, hooks sueltos, material para posturas |
 | `historico-performance.md` | Métricas post a post e hipótesis abiertas |
 | `posteos/`, `comentarios/` | Lo publicado, con fecha |

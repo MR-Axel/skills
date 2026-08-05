@@ -8,7 +8,7 @@ las sesiones, nunca con supuestos.
 ## perfil-marca.md
 
 ```markdown
-# Perfil de marca — [nombre]
+# Perfil de marca · [nombre]
 
 ## Objetivo
 Prioridad 1: [objetivo principal]
@@ -44,7 +44,7 @@ Lo que le da vergüenza ajena: [para marcar el límite]
 Manías tipográficas y de estilo: [ej. signos que no usa, formatos que evita]
 
 ## Fuentes del radar
-[las de su área, de references/fuentes-por-area.md, más las propias]
+[las de su área, de references/02-fuentes-por-area.md, más las propias]
 
 ## Estilo visual
 Paleta: [hex]
@@ -81,21 +81,71 @@ puede estar en desacuerdo, no es postura.]
 
 ## calendario.md
 
-```markdown
-# Calendario de publicación
+Es la cola de producción y la fuente de verdad. Se lee entero antes de proponer cualquier
+contenido. Ver `05-calendario-editorial.md`.
 
-| Día | Qué se publica | Franja |
-|---|---|---|
-| | | |
+````markdown
+# Calendario editorial
 
-Reacción a noticia: cualquier día, apenas surge. Reemplaza al post programado, no se suma.
-Comentarios en posts ajenos: continuo, dentro de las 2-3hs del post original.
+**Regla dura: antes de proponer contenido nuevo, leer este archivo completo y el histórico.**
+Nada se sugiere sin chequear contra lo publicado y lo que está en cola.
 
-Reglas de espaciado:
-- Mínimo 24hs entre posts propios.
-- Link externo siempre al primer comentario.
+Última actualización: [fecha]
+
+## Ritmo semanal
+
+Un formato distinto por día, para que no compitan entre sí.
+
+| Día | Formato fijo | Hora | Por qué ese día |
+|---|---|---|---|
+| | | | |
+
+Excepción por fecha límite: una noticia que pierde valor si espera empuja lo programado un día.
+Dos posts el mismo día solo si son de registros muy distintos. Nunca dos del mismo formato.
+Comentarios en posts ajenos: continuo, dentro de las 2-3hs del post original, no compiten.
+
+## Cola de publicación
+
+| Fecha | Día | Hora | Categoría | Título | Imagen | Estado |
+|---|---|---|---|---|---|---|
+| | | | | | | |
+
+Estados: publicado · listo · texto pendiente · tema pendiente.
+
+## Estilo visual
+
+[Bloque base de prompt de imagen, común a todas las piezas. Cambia acá, no en cada prompt.]
+
+## Entradas con texto listo
+
+### [fecha] · [día] [hora] · [CATEGORÍA]
+
+**Por qué ese día:** [criterio]
+
+**Texto:**
+
+> [el post completo, listo para copiar sin editar]
+
+**Prompt de imagen:**
+
+> [el prompt exacto]
+
+**Fuentes (van al primer comentario):** [links]
+
+## Cuarentena
+
+**[Tema] ([fuente], [fecha])**: [por qué es bueno]. Se pisa con [el post del X] por [motivo].
+Revivir después del [fecha], reescrito desde el ángulo [nuevo], evitando [la escena que se solapaba].
+
+## Experimentos abiertos
+
+- **Constantes:** [qué no se toca] · **Variable:** [la única que cambia]
+- **Qué se compara al corte de 24hs:** [métricas]
+````
+
+Reglas de formato que no cambian:
+- Link externo siempre al primer comentario, nunca en el cuerpo.
 - No recompartir posts propios al día siguiente.
-```
 
 ---
 

@@ -43,6 +43,21 @@ Después le pedís cosas en lenguaje natural:
 - "cargá estas métricas del post de ayer"
 - "por qué te parece que rindió así"
 
+## La app del calendario
+
+Todo lo que se prepara entra en una cola con fecha, hora, texto completo, prompt de imagen y
+links de fuente. `assets/calendario-app.html` la muestra en vista semanal y en lista, con
+detalle por post, botones de copiar y cuenta regresiva para lo que tiene fecha límite.
+
+Es un archivo único, sin dependencias y sin servidor. Se abre con doble clic.
+
+```
+Copiá assets/calendario-app.html a mi carpeta y cargale la cola del calendario
+```
+
+Claude escribe los datos en el bloque JSON que la app trae adentro. Para actualizarla, reescribe
+solo ese bloque, así podés bajar una versión nueva de la app del repo sin perder tus datos.
+
 ## Automatizarlo
 
 En `routines/` hay cuatro rutinas listas para instalar como tareas programadas: el radar diario y
@@ -77,12 +92,15 @@ linkedin-personal-brand/
     02-fuentes-por-area.md    qué rastrear según tu disciplina
     03-radar-diario.md        cómo convertir noticias en contenido
     04-metricas.md            cómo leer los números sin engañarte
+    05-calendario-editorial.md  la cola de producción y la app
     plantillas.md             plantillas de los archivos que mantiene
   routines/
     radar-diario.md
     prep-serie.md
     prep-postura.md
     prep-historia.md
+  assets/
+    calendario-app.html       la app de la cola, un archivo sin dependencias
   README.md
 ```
 

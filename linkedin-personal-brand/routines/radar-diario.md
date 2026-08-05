@@ -11,10 +11,16 @@ así que no se puede leer el feed personal. El rastreo se hace por búsqueda web
 públicas. Si en el futuro se conecta un navegador con sesión iniciada, el alcance se puede
 ampliar al feed real.
 
-Antes de nada, leé completos `[carpeta de trabajo]/perfil-marca.md` e
-`[carpeta de trabajo]/identidad-marca.md`: objetivo, terreno, audiencia, reglas de voz y
-restricciones duras de material. Y `references/03-radar-diario.md` del skill para el
-procedimiento.
+Antes de nada, leé completos cuatro archivos de `[carpeta de trabajo]`:
+
+- `perfil-marca.md` e `identidad-marca.md`: objetivo, terreno, audiencia, reglas de voz y
+  restricciones duras de material.
+- `calendario.md`: qué se publicó esta semana y qué está en cola. **Sin esto las sugerencias se
+  pisan con contenido que ya existe.**
+- `historico-performance.md`: qué viene funcionando y qué hipótesis están abiertas.
+
+Y del skill, `references/03-radar-diario.md` para el procedimiento y
+`references/05-calendario-editorial.md` para la regla de colisión.
 
 ## Pasos
 
@@ -25,6 +31,10 @@ procedimiento.
    dicen las voces conocidas del área.
 3. **Elegí los 3 a 5 hallazgos más relevantes para este perfil**, no los más grandes del día. Si
    sobre un tema la persona no puede aportar nada propio, descartalo.
+3b. **Chequeá cada candidato contra el calendario** antes de redactar nada. Colisiona si comparte
+   tesis, escena o dato ancla con algo publicado en los últimos 7 días o con algo que está en
+   cola. Lo que colisiona no se descarta en silencio ni se propone igual: va a la sección de
+   cuarentena del calendario, con fecha de revival y un ángulo reescrito que evite el solapamiento.
 4. **Clasificá cada uno en UNA categoría** y preparé el texto correspondiente, listo para copiar
    y pegar:
    - **REACCIÓN**: post propio y nativo sobre la noticia. No es un repost. Redactá el texto
@@ -36,7 +46,11 @@ procedimiento.
    - **MATERIAL PARA POSTURA**: si el tema da para una opinión fuerte, dejalo anotado como
      insumo con su ángulo y sus datos ancla. No escribas el post entero.
 5. **Presentá todo en el chat**: primero una tabla con noticia y fuente, categoría, por qué
-   importa y link; después los textos completos abajo, uno por uno.
+   importa y link; después los textos completos abajo, uno por uno. Decí explícitamente contra
+   qué se chequeó ("contra los últimos 7 días y contra la cola") y qué mandaste a cuarentena.
+6. **Actualizá el calendario** con lo que quedó listo: entrada nueva con fecha propuesta, hora,
+   categoría, texto completo, prompt de imagen y fuentes. Si hay app instalada, regenerá su
+   bloque de datos. Proponer la fecha es parte del trabajo; un texto suelto sin fecha se pierde.
 
 ## Reglas
 
