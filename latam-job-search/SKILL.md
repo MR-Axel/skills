@@ -32,6 +32,7 @@ setup, not from a guess.
 | `/job-search` | One search run: search, gate, score, dedupe, present. Accepts an optional focus, e.g. `/job-search voice AI`. |
 | `/job-evaluate <n>` | Full fit evaluation of posting `n` from the last digest. |
 | `/job-track` | Record an application in `job-search/tracker.csv`. |
+| `/job-dashboard` | Rebuild `job-search/dashboard.html`, the filterable view of every posting ever surfaced. |
 
 Plain language works too: "buscá trabajo", "any new jobs today?", "¿esta oferta me sirve?".
 
@@ -119,8 +120,11 @@ latam-job-search/
 ├── assets/
 │   ├── candidate-profile.template.md
 │   ├── seen_jobs.template.json
-│   └── tracker.template.csv
+│   ├── tracker.template.csv
+│   └── pipeline.template.csv
 └── tools/
+    ├── sync_pipeline.py              merges seen_jobs + tracker into pipeline.csv
+    ├── build_dashboard.py            renders pipeline.csv into dashboard.html
     ├── linkedin-search/              bun CLI, public job board, no auth
     │   ├── USAGE.md                  flags and examples, read before invoking
     │   └── cli/

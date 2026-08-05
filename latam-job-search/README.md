@@ -54,6 +54,7 @@ Después, en Claude Code:
 | `/job-search` | Una corrida: busca, filtra, puntúa, deduplica, presenta. Acepta foco: `/job-search voice AI` |
 | `/job-evaluate 3` | Evaluación completa de la oferta 3 del último listado |
 | `/job-track` | Registra una postulación |
+| `/job-dashboard` | Regenera el tablero HTML con todo lo visto hasta hoy |
 
 También funciona en lenguaje natural: "buscá trabajo", "¿hay algo nuevo hoy?",
 "¿esta oferta me sirve?".
@@ -87,11 +88,48 @@ Todo queda en `job-search/` dentro de tu workspace:
 job-search/
 ├── profile.md        tu perfil, editable a mano
 ├── seen_jobs.json    todo lo visto, presentado y descartado, con el motivo del descarte
-└── tracker.csv       tus postulaciones
+├── tracker.csv       tus postulaciones
+├── pipeline.csv      una fila por puesto, de "lo encontré" hasta "oferta" o "descartado"
+└── dashboard.html    el tablero, generado desde pipeline.csv
 ```
 
 Nada se envía a ningún lado. Si tu workspace es un repo, agregá `job-search/` al
 `.gitignore`: el perfil tiene tus números de sueldo y el tracker tu historial.
+
+## El tablero
+
+Después de unas semanas el problema deja de ser encontrar ofertas y pasa a ser acordarte
+cuál era cuál. La tabla de la mañana sirve esa mañana; a los quince días tenés doscientas
+filas repartidas en veinte conversaciones y ninguna forma de ver en qué quedó cada una.
+
+`pipeline.csv` es una fila por puesto con todo el ciclo de vida, y guarda lo que el scraper
+no sabe: `pros`, `cons`, `location`, `modality`, `comp`, `english_req`, `company_type`,
+`company_url`. `dashboard.html` lo renderiza en un archivo solo, sin servidor ni CDN, que
+abrís directo del disco y anda offline.
+
+```bash
+python tools/sync_pipeline.py     # junta seen_jobs.json + tracker.csv en pipeline.csv
+python tools/build_dashboard.py   # arma job-search/dashboard.html
+```
+
+- Estado como checkboxes múltiples, con **descartados apagado por defecto**: el descarte se
+  vuelve la mayoría de las filas enseguida y taparía todo lo demás
+- Filtros de fit, tipo de rol, modalidad, tipo de empresa, fuente y rango de fechas
+- El buscador entra también adentro de pros y contras, así que "n8n" o "sin inglés hablado"
+  encuentra la fila aunque no esté en el título
+- Orden por defecto: fecha de encontrado, y dentro del mismo día el mejor fit primero
+- Clic en una fila abre pros, contras, notas, comp, idioma y el CV que mandaste
+- Exporta a CSV lo que estés viendo filtrado
+
+> **Guardalo en marcadores.** Es un archivo local, así que arrastrá `job-search/dashboard.html`
+> a la barra de marcadores del navegador (o abrilo y hacé Ctrl/Cmd+D). Tenerlo a un clic es
+> la diferencia entre un tablero que mirás todos los días y uno que regenerás y no volvés a
+> abrir. El `sync` es no destructivo: regenerar nunca te pisa lo que escribiste a mano, así
+> que el marcador siempre apunta a la última versión.
+
+`sync_pipeline.py` solo rellena campos vacíos y mueve el estado hacia adelante, nunca hacia
+atrás. `last_update` se estampa únicamente en las filas que cambiaron de verdad, que es lo
+que hace que esa columna signifique algo.
 
 ## Salida
 
@@ -131,6 +169,13 @@ never-claim list, watch-list companies, culture red-flag phrases, and output pre
 
 Every gate is documented in `references/02-eligibility-and-location.md`, including why each
 one exists. State lives in `job-search/` in your own workspace and is never transmitted.
+
+`tools/sync_pipeline.py` and `tools/build_dashboard.py` turn that state into
+`job-search/dashboard.html`: one self-contained offline page, one row per posting across
+its whole lifecycle, with multi-select status filters (discarded off by default), search
+that reaches into the pros and cons text, and CSV export of the current filter. Bookmark
+the file — regenerating it never overwrites hand-written notes, so the bookmark always
+points at the current view.
 
 ## Tools
 

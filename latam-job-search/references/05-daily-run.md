@@ -63,6 +63,43 @@ morning, and `dropped_by` is what lets the user audit the filter later.
 
 Use the real current date for `first_seen`. Never guess it.
 
+Keep `title` a clean job title. The reason a posting was dropped goes in `dropped_by`,
+never appended onto the title, or the same job reads as two different ones later.
+
+### Step 4b: the pipeline and the dashboard
+
+`seen_jobs.json` is a dedup ledger: title, company, URL, fit. It cannot answer "why did I
+skip this one" three weeks later, which is exactly what the user asks. That lives in
+`job-search/pipeline.csv`, one row per posting across its whole life, and it is what the
+dashboard renders.
+
+From the workspace:
+
+```bash
+python tools/sync_pipeline.py
+```
+
+Then fill in, for every posting presented this run, the columns a scraper cannot know:
+
+- `pros` / `cons` — the same specific text written into the digest table, verbatim
+- `location`, `modality` (`remote` / `hybrid` / `onsite` / `unverified`), `comp`, `english_req`
+- `company_url`, `company_type`, `role_type`, `sector`
+
+Rejected postings keep their row with `status: discarded` and the gate that killed them in
+`notes`. Then:
+
+```bash
+python tools/build_dashboard.py
+```
+
+Both scripts are non-destructive: they fill empty fields and only ever move a status
+forward, so hand-written notes survive every run. `last_update` is stamped only on rows
+that actually changed, which is what makes that column mean something. Never hand-edit the
+generated HTML — change `build_dashboard.py` instead.
+
+Close the digest with one line pointing at the refreshed dashboard, since that is where
+the user tracks things across days rather than inside one morning's table.
+
 ## Step 5: present
 
 One table, sorted by fit, then a short highlight. That is the whole report.
