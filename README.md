@@ -1,6 +1,6 @@
 # skills
 
-15 skills abiertos para [Claude Code](https://claude.com/claude-code). Cada carpeta es
+14 skills abiertos para [Claude Code](https://claude.com/claude-code). Cada carpeta es
 independiente: copiás la que querés y funciona sola.
 
 Lo que tienen en común no es el tema, es cómo están escritos. Ninguno trae tu stack, tu
@@ -124,3 +124,9 @@ Ver [CONTRIBUTING.md](CONTRIBUTING.md). Issues y PRs bienvenidos, en español o 
 
 MIT, ver [LICENSE](LICENSE). Un skill incluye código de terceros con su propia atribución,
 ver [NOTICE.md](NOTICE.md).
+
+## Apoyar · Support
+
+Los skills son gratis y abiertos. Si te ahorran tiempo, podés [bancar lo próximo en Ko-fi](https://ko-fi.com/mraxel).
+
+The skills are free and open. If they save you time, you can [support what comes next on Ko-fi](https://ko-fi.com/mraxel).
