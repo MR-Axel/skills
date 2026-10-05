@@ -127,6 +127,8 @@ ver [NOTICE.md](NOTICE.md).
 
 ## Apoyar · Support
 
+[![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/mraxel)
+
 Los skills son gratis y abiertos. Si te ahorran tiempo, podés [bancar lo próximo en Ko-fi](https://ko-fi.com/mraxel).
 
 The skills are free and open. If they save you time, you can [support what comes next on Ko-fi](https://ko-fi.com/mraxel).
